@@ -17,5 +17,7 @@ namespace Repository
         public void addBookAccount(BookManagementMember accountBook) => AccountDAO.Instance.addBookAccount(accountBook);
 
         public void deleteBookAccount(string id) => AccountDAO.Instance.deleteBookAccount(id);
+
+        public void UpdateBookProfile(BookManagementMember bookaccount) => AccountDAO.Instance.UpdateBookProfile(bookaccount);
     }
 }

@@ -37,5 +37,9 @@ namespace Services
             return accountRepository.GetListAccount();
         }
 
+        public void UpdateBookProfile(BookManagementMember bookaccount)
+        {
+            accountRepository.UpdateBookProfile(bookaccount);
+        }
     }
 }

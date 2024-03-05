@@ -15,5 +15,7 @@ namespace Repository
         public void addBookAccount(BookManagementMember accountBook);
 
         public void deleteBookAccount(string id);
+
+        public void UpdateBookProfile(BookManagementMember bookaccount);
     }
 }

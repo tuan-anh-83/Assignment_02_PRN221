@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Objects.Models;
+using Repository;
+using Services;
 
 namespace Assi02_PRN221.Pages.Account
 {
     public class EditModel : PageModel
     {
-        private readonly Objects.Models.BookManagementContext _context;
+        private readonly IAccountService _accountService = null;
 
-        public EditModel(Objects.Models.BookManagementContext context)
+        public EditModel(IAccountService accountService)
         {
-            _context = context;
+            _accountService = accountService;
         }
 
         [BindProperty]
@@ -24,17 +26,17 @@ namespace Assi02_PRN221.Pages.Account
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.BookManagementMembers == null)
+            if (id == null || _accountService.GetListAccount() == null)
             {
                 return NotFound();
             }
 
-            var bookmanagementmember =  await _context.BookManagementMembers.FirstOrDefaultAsync(m => m.MemberId == id);
-            if (bookmanagementmember == null)
+            var staffaccount = _accountService.GetBookById(id);
+            if (staffaccount == null)
             {
                 return NotFound();
             }
-            BookManagementMember = bookmanagementmember;
+            BookManagementMember = staffaccount;
             return Page();
         }
 
@@ -47,30 +49,19 @@ namespace Assi02_PRN221.Pages.Account
                 return Page();
             }
 
-            _context.Attach(BookManagementMember).State = EntityState.Modified;
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                _accountService.UpdateBookProfile(BookManagementMember);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookManagementMemberExists(BookManagementMember.MemberId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
+
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool BookManagementMemberExists(string id)
-        {
-          return (_context.BookManagementMembers?.Any(e => e.MemberId == id)).GetValueOrDefault();
         }
     }
 }

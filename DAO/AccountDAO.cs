@@ -74,5 +74,20 @@ namespace DAO
             }
 
         }
+
+        public void UpdateBookProfile(BookManagementMember bookaccount)
+        {
+            var dbContext = new BookManagementContext();
+
+            if (bookaccount != null)
+            {
+                dbContext.BookManagementMembers.Update(bookaccount);
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("BookID hasn't existed !");
+            }
+        }
     }
 }
