@@ -6,35 +6,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Objects.Models;
+using Repository;
+using Services;
 
 namespace Assi02_PRN221.Pages.Account
 {
     public class DetailsModel : PageModel
     {
-        private readonly Objects.Models.BookManagementContext _context;
+        private readonly IAccountService _accountService;
 
-        public DetailsModel(Objects.Models.BookManagementContext context)
+        public DetailsModel(IAccountService accountService)
         {
-            _context = context;
+            _accountService = accountService;
         }
 
-      public BookManagementMember BookManagementMember { get; set; } = default!; 
+        public BookManagementMember BookManagementMember { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.BookManagementMembers == null)
+            if (id == null || _accountService.GetListAccount() == null)
             {
                 return NotFound();
             }
 
-            var bookmanagementmember = await _context.BookManagementMembers.FirstOrDefaultAsync(m => m.MemberId == id);
-            if (bookmanagementmember == null)
+            var bookaccount = _accountService.GetBookById(id);
+            if (bookaccount == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
-                BookManagementMember = bookmanagementmember;
+                BookManagementMember = bookaccount;
             }
             return Page();
         }

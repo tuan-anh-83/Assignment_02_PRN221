@@ -6,54 +6,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Objects.Models;
+using Repository;
+using Services;
 
 namespace Assi02_PRN221.Pages.Account
 {
     public class DeleteModel : PageModel
     {
-        private readonly Objects.Models.BookManagementContext _context;
+        private readonly IAccountService _accountService = null;
 
-        public DeleteModel(Objects.Models.BookManagementContext context)
+        public DeleteModel(IAccountService accountService)
         {
-            _context = context;
+            _accountService = accountService;
         }
 
         [BindProperty]
-      public BookManagementMember BookManagementMember { get; set; } = default!;
+        public BookManagementMember BookManagementMember { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.BookManagementMembers == null)
+            if (id == null || _accountService.GetListAccount() == null)
             {
                 return NotFound();
             }
 
-            var bookmanagementmember = await _context.BookManagementMembers.FirstOrDefaultAsync(m => m.MemberId == id);
+            var bookaccount = _accountService.GetBookById(id);
 
-            if (bookmanagementmember == null)
+            if (bookaccount == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
-                BookManagementMember = bookmanagementmember;
+                BookManagementMember = bookaccount;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            if (id == null || _context.BookManagementMembers == null)
+            if (id == null || _accountService.GetListAccount() == null)
             {
                 return NotFound();
             }
-            var bookmanagementmember = await _context.BookManagementMembers.FindAsync(id);
+            var bookaccount = _accountService.GetBookById(id);
 
-            if (bookmanagementmember != null)
+            if (bookaccount != null)
             {
-                BookManagementMember = bookmanagementmember;
-                _context.BookManagementMembers.Remove(BookManagementMember);
-                await _context.SaveChangesAsync();
+                _accountService.deleteBookAccount(id);
             }
 
             return RedirectToPage("./Index");

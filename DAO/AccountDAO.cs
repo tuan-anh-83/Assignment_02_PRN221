@@ -61,5 +61,18 @@ namespace DAO
             }
 
         }
+
+        public void deleteBookAccount(string id)
+        {
+            //truoc khi save thi:
+            BookManagementMember book = GetBookById(id);
+            if (book != null)
+            {
+                var dBContext = new BookManagementContext();
+                dBContext.BookManagementMembers.Remove(book);
+                dBContext.SaveChanges();
+            }
+
+        }
     }
 }

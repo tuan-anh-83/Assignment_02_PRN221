@@ -14,5 +14,7 @@ namespace Services
         public List<BookManagementMember> GetListAccount();
 
         public void addBookAccount(BookManagementMember accountBook);
+
+        public void deleteBookAccount(string id);
     }
 }

@@ -16,6 +16,6 @@ namespace Repository
 
         public void addBookAccount(BookManagementMember accountBook) => AccountDAO.Instance.addBookAccount(accountBook);
 
-
+        public void deleteBookAccount(string id) => AccountDAO.Instance.deleteBookAccount(id);
     }
 }

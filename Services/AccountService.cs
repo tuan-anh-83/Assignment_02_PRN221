@@ -22,6 +22,11 @@ namespace Services
             accountRepository.addBookAccount(accountBook);
         }
 
+        public void deleteBookAccount(string id)
+        {
+            accountRepository.deleteBookAccount(id);
+        }
+
         public BookManagementMember GetBookById(string id)
         {
             return accountRepository.GetBookById(id);
