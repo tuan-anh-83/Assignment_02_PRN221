@@ -3,6 +3,7 @@ using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
