@@ -1,0 +1,42 @@
+﻿@page
+@model Assi02_PRN221.Pages.BookCate.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookCategory[0].BookGenreType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookCategory[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.BookCategory) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookGenreType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.BookCategoryId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.BookCategoryId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.BookCategoryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

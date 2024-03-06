@@ -8,23 +8,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Objects.Models;
 using Services;
 
-namespace Assi02_PRN221.Pages.BookBorrowList
+namespace Assi02_PRN221.Pages.BookCate
 {
     public class CreateModel : PageModel
     {
-        private readonly IBookBorrowService _bookBorrowService;
+        private readonly IBookCateService _bookCateService;
 
-        public CreateModel(IBookBorrowService bookBorrowService)
+        public CreateModel(IBookCateService bookCateService)
         {
-            _bookBorrowService = bookBorrowService;
+            _bookCateService = bookCateService;
         }
-
-        /*public IActionResult OnGet()
-        {
-        ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId");
-        ViewData["MemberId"] = new SelectList(_context.BookManagementMembers, "MemberId", "MemberId");
-            return Page();
-        }*/
 
         public IActionResult OnGet()
         {
@@ -32,18 +25,18 @@ namespace Assi02_PRN221.Pages.BookBorrowList
         }
 
         [BindProperty]
-        public BookBorrow BookBorrow { get; set; } = default!;
+        public BookCategory BookCategory { get; set; } = default!;
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _bookBorrowService.GetBookBorrows() == null || BookBorrow == null)
+            if (!ModelState.IsValid || _bookCateService.GetBookCate() == null || BookCategory == null)
             {
                 return Page();
             }
 
-            _bookBorrowService.AddBookBorrow(BookBorrow);
+            _bookCateService.AddBookCate(BookCategory);
             //  await _accountService.SaveChangesAsync();
 
             return RedirectToPage("./Index");

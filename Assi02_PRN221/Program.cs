@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookBorrowService, BookBorrowService>();
+builder.Services.AddScoped<IBookCateService, BookCateService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

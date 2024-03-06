@@ -8,28 +8,28 @@ using Microsoft.EntityFrameworkCore;
 using Objects.Models;
 using Services;
 
-namespace Assi02_PRN221.Pages.BookBorrowList
+namespace Assi02_PRN221.Pages.BookCate
 {
     public class DeleteModel : PageModel
     {
-        private readonly IBookBorrowService _bookBorrowService = null;
+        private readonly IBookCateService _bookCateService = null;
 
-        public DeleteModel(IBookBorrowService bookBorrowService)
+        public DeleteModel(IBookCateService bookCateService)
         {
-            _bookBorrowService = bookBorrowService;
+            _bookCateService = bookCateService;
         }
 
         [BindProperty]
-        public BookBorrow BookBorrow { get; set; } = default!;
+        public BookCategory BookCategory { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _bookBorrowService.GetBookBorrows() == null)
+            if (id == null || _bookCateService.GetBookCate() == null)
             {
                 return NotFound();
             }
 
-            var bookaccount = _bookBorrowService.GetBookBorrowByID(id);
+            var bookaccount = _bookCateService.GetBookCateByID(id);
 
             if (bookaccount == null)
             {
@@ -37,22 +37,22 @@ namespace Assi02_PRN221.Pages.BookBorrowList
             }
             else
             {
-                BookBorrow = bookaccount;
+                BookCategory = bookaccount;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            if (id == null || _bookBorrowService.GetBookBorrows() == null)
+            if (id == null || _bookCateService.GetBookCate() == null)
             {
                 return NotFound();
             }
-            var bookaccount = _bookBorrowService.GetBookBorrowByID(id);
+            var bookaccount = _bookCateService.GetBookCateByID(id);
 
             if (bookaccount != null)
             {
-                _bookBorrowService.DeleteBookBorrow(id);
+                _bookCateService.DeleteBookCate(id);
             }
 
             return RedirectToPage("./Index");
