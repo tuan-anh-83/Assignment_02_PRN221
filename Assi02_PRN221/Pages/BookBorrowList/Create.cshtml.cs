@@ -6,38 +6,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Objects.Models;
-using Services;
 
-namespace Assi02_PRN221.Pages.BookList
+namespace Assi02_PRN221.Pages.BookBorrowList
 {
     public class CreateModel : PageModel
     {
-        private readonly IBookService _iBookService = null;
+        private readonly Objects.Models.BookManagementContext _context;
 
-        public CreateModel(IBookService iBookService)
+        public CreateModel(Objects.Models.BookManagementContext context)
         {
-            _iBookService = iBookService;
+            _context = context;
         }
 
         public IActionResult OnGet()
         {
+        ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId");
+        ViewData["MemberId"] = new SelectList(_context.BookManagementMembers, "MemberId", "MemberId");
             return Page();
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
-
+        public BookBorrow BookBorrow { get; set; } = default!;
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _iBookService.GetBooks() == null || _iBookService == null)
+          if (!ModelState.IsValid || _context.BookBorrows == null || BookBorrow == null)
             {
                 return Page();
             }
 
-            _iBookService.AddBookProfile(Book);
-            //  await _accountService.SaveChangesAsync();
+            _context.BookBorrows.Add(BookBorrow);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

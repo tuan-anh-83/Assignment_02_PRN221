@@ -12,11 +12,11 @@ namespace Assi02_PRN221.Pages.BookList
 {
     public class DeleteModel : PageModel
     {
-        private readonly IBookService _bookService = null;
+        private readonly IBookService _iBookService = null;
 
-        public DeleteModel(IBookService bookService)
+        public DeleteModel(IBookService iBookService)
         {
-            _bookService = bookService;
+            _iBookService = iBookService;
         }
 
         [BindProperty]
@@ -24,12 +24,12 @@ namespace Assi02_PRN221.Pages.BookList
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _bookService.GetBooks() == null)
+            if (id == null || _iBookService.GetBooks() == null)
             {
                 return NotFound();
             }
 
-            var bookaccount = _bookService.GetBookProfileByID(id);
+            var bookaccount = _iBookService.GetBookProfileByID(id);
 
             if (bookaccount == null)
             {
@@ -44,15 +44,15 @@ namespace Assi02_PRN221.Pages.BookList
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            if (id == null || _bookService.GetBooks() == null)
+            if (id == null || _iBookService.GetBooks() == null)
             {
                 return NotFound();
             }
-            var bookaccount = _bookService.GetBookProfileByID(id);
+            var bookaccount = _iBookService.GetBookProfileByID(id);
 
             if (bookaccount != null)
             {
-                _bookService.DeleteBookProfile(id);
+                _iBookService.DeleteBookProfile(id);
             }
 
             return RedirectToPage("./Index");

@@ -1,0 +1,43 @@
+﻿@page
+@model Assi02_PRN221.Pages.BookBorrowList.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>BookBorrow</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookBorrow.BorrowDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookBorrow.BorrowDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookBorrow.ReturnDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookBorrow.ReturnDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookBorrow.Book)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookBorrow.Book.BookId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookBorrow.Member)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookBorrow.Member.MemberId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.BookBorrow?.BookBorrowId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
