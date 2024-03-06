@@ -1,0 +1,33 @@
+﻿@page
+@model Assi02_PRN221.Pages.SignUpModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <div class="form-group">
+    <label for="inputMemberId">User Name</label>
+    <input asp-for="MemberId" class="form-control" id="inputMemberId" placeholder="Enter your MemberId" required autofocus>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input asp-for="Email" class="form-control" id="inputEmail" placeholder="Enter your email" required autofocus>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input asp-for="Password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">FullName</label>
+        <input asp-for="FullName" type="text" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-danger mt-3" role="alert">
+        @ViewData["Message"]
+    </div>
+}

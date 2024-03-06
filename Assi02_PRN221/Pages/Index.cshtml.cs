@@ -33,7 +33,19 @@ namespace Assi02_PRN221.Pages
 
             if (account != null && password.Equals(account.Password))
             {
-                return Redirect("Account");
+                if (account.MemberRole == 1)
+                {
+                    return Redirect("Account");
+                }
+                if (account.MemberRole == 2)
+                {
+                    return Redirect("BookBorrowList");
+                }
+
+                if (account.MemberRole == 3)
+                {
+                    return Redirect("BookList");
+                }
             }
             return Redirect("Index");
         }
